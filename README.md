@@ -8,17 +8,17 @@ A tutorial on how to find directories with specific markers (filename) and check
 ## Introduction
 
 First of all, let's talk about the use cases of this function. When working with import apps, there are often cases where we need a specific structure for input data to ensure the application functions correctly. Frequently, it's necessary to identify a specific file marker that serves as a reference point for determining the rest of the structure. However, user-provided data can have varying structures. For instance, the target directory might not be in the root directory but nested within several other directories, or the data may contain not just one but multiple suitable directories. <br>
-For example, we're trying to find a directory with a `config.yaml` file in it. The directory structure might look like this:
+For example, we're trying to find a directory with a `config.json` file in it. The directory structure might look like this:
 
 ```text
 📂 input_dir
 ┣ 📂 nested_dir_1
 ┃ ┣ 📂 nested_dir_2
 ┃ ┃ ┗ 📂 nested_dir_3
-┃ ┃   ┣ 📄 config.yaml
+┃ ┃   ┣ 📄 config.json
 ┃ ┃   ┗ 📄 data.csv
 ┗ 📂 nested_dir_4
-  ┣ 📄 config.yaml
+  ┣ 📄 config.json
   ┗ 📄 data.csv
 ```
 
