@@ -76,14 +76,14 @@ You can find the above demo archive in the data directory of the dirs-with-marke
 
 ## Tutorial content
 
-- [Step 1. How to extract the archive and clean it of junk files](#step-1-how-to-extract-the-archive-and-clean-it-of-junk-files)
+- [Step 1. How to extract the archive and remove junk files](#step-1-how-to-extract-the-archive-and-remove-junk-files)
 - [Step 2. How to find directories with markers](#step-2-how-to-find-directories-with-markers)
-- [Step 3. How to check directories for some conditions](#step-3-how-to-check-directories-for-some-conditions)
+- [Step 3. How to check directories for specific conditions](#step-3-how-to-check-directories-for-specific-conditions)
 - [Example of the final code](#example-of-the-final-code)
 
 Everything you need to reproduce [this tutorial is on GitHub](https://github.com/supervisely-ecosystem/dirs-with-marker): [main.py](https://github.com/supervisely-ecosystem/dirs-with-marker/blob/master/src/main.py).
 
-## Step 1. How to extract the archive and clean it of junk files
+## Step 1. How to extract the archive and remove junk files
 
 It's not a rare case, when the archive from a user contains some unnecessary files. For example, the archive may contain a `__MACOSX` directory or `.DS_Store` files, which are created by macOS. If we don't handle them, we may have an error while working with the data, so in most cases, it's much easier to delete them. <br>
 
@@ -125,9 +125,9 @@ for directory in sly.fs.dirs_with_marker(EXCTRACT_PATH, MARKERS, ignore_case=Tru
 
 Ok, we've found the directories, but how can we check them for some conditions? Let's talk about it in the next section.
 
-## Step 3. How to check directories for some conditions
+## Step 3. How to check directories for specific conditions
 
-As we've already mentioned, we can pass a function to the `check_function` parameter, which will be used to check the directory for some conditions. This function must return `True` if the directory is valid and `False` otherwise. So, our conditions for checking were: `config.json` file must have a key `valid`, and its value must be `true`, and the directory must contain two other subdirectories: `images` and `anns`. Let's implement this check:
+As we've already mentioned, we can pass a function to the `check_function` parameter, which will be used to check the directory for specific conditions. This function must return `True` if the directory is valid and `False` otherwise. So, our conditions for checking were: `config.json` file must have a key `valid`, and its value must be `true`, and the directory must contain two subdirectories: `images` and `anns`. Let's implement this check:
 
 ```python
 def check_function(directory: str) -> bool:
@@ -179,7 +179,7 @@ for checked_directory in sly.fs.dirs_with_marker(
     print(f"The directory '{checked_directory}' is valid.")
 ```
 
-Let's have a look on what we've got here:
+**Let's have a look on what we've got here:**
 
 1. We've extracted the archive and removed junk files.
 2. We've specified the marker we want to find.
