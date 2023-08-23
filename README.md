@@ -14,12 +14,12 @@ For example, we're trying to find a directory with a `config.json` file in it. T
 📂 input_dir
 ┣ 📂 nested_dir_1
 ┃ ┣ 📂 nested_dir_2
-┃ ┃ ┗ 📂 nested_dir_3
-┃ ┃   ┣ 📄 config.json
-┃ ┃   ┗ 📄 data.csv
-┗ 📂 nested_dir_4
-  ┣ 📄 config.json
-  ┗ 📄 data.csv
+┃ ┃ ┣ 📂 nested_dir_3
+┃ ┃ ┃ ┣ 📄 config.json
+┃ ┃ ┃ ┗ 📄 data.csv
+┣ 📂 nested_dir_4
+┃ ┣ 📄 config.json
+┃ ┗ 📄 data.csv
 ```
 
 So, in this case, we need to find two directories: `nested_dir_3` and `nested_dir_4`. It's not a problem to find them, but why implement the same logic every time? It's much easier to use a function that will do it for us everywhere we need it. <br>
@@ -53,7 +53,24 @@ We prepared a short Python script, that will unpack an archive (as an example of
 - The `config.json` file must have a key `valid`, and its value must be `true`.
 - The directory must contain two other subdirectories: `images` and `anns`.
 
-!!!! ADD TREE WITH ARCHIVE !!!
+Example archive structure:
+
+```text
+📦extracted
+ ┗ 📂input_dir
+ ┃ ┣ 📂subdir01
+ ┃ ┃ ┣ 📂subdir11
+ ┃ ┃ ┃ ┣ 📂anns
+ ┃ ┃ ┃ ┣ 📂images
+ ┃ ┃ ┃ ┗ 📜config.json
+ ┃ ┃ ┗ 📂subdir12
+ ┃ ┃ ┃ ┣ 📂anns
+ ┃ ┃ ┃ ┣ 📂images
+ ┃ ┃ ┃ ┗ 📜config.json
+ ┃ ┗ 📂subdir02
+```
+
+So, we have two directories with `config.json` files in them, but only one of them is valid. <br>
 
 You can find the above demo archive in the data directory of the dirs-with-marker repo - [here](https://github.com/supervisely-ecosystem/dirs-with-marker/blob/master/data)
 
