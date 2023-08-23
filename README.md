@@ -62,11 +62,11 @@ Example archive structure:
  ┃ ┃ ┣ 📂subdir11
  ┃ ┃ ┃ ┣ 📂anns
  ┃ ┃ ┃ ┣ 📂images
- ┃ ┃ ┃ ┗ 📜config.json
+ ┃ ┃ ┃ ┗ 📄config.json
  ┃ ┃ ┗ 📂subdir12
  ┃ ┃ ┃ ┣ 📂anns
  ┃ ┃ ┃ ┣ 📂images
- ┃ ┃ ┃ ┗ 📜config.json
+ ┃ ┃ ┃ ┗ 📄config.json
  ┃ ┗ 📂subdir02
 ```
 
