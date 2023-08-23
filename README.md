@@ -113,5 +113,66 @@ Ok, we've found the directories, but how can we check them for some conditions? 
 As we've already mentioned, we can pass a function to the `check_function` parameter, which will be used to check the directory for some conditions. This function must return `True` if the directory is valid and `False` otherwise. So, our conditions for checking were: `config.json` file must have a key `valid`, and its value must be `true`, and the directory must contain two other subdirectories: `images` and `anns`. Let's implement this check:
 
 ```python
+def check_function(directory: str) -> bool:
+    config = json.load(open(os.path.join(directory, MARKERS)))
+    images_dir = os.path.join(directory, "images")
+    anns_dir = os.path.join(directory, "anns")
 
+    return config.get("valid") is True and os.path.isdir(images_dir) and os.path.isdir(anns_dir)
 ```
+
+Just as a reminder, the `check_function` must return the `bool` value. <br>
+
+## Example of the final code
+
+So, we've implemented the check function, and now we can use it in the `sly.fs.dirs_with_marker()` function. Here's the full code:
+
+```python
+import os
+import json
+
+import supervisely as sly
+
+DATA_DIR = "data"
+ARCHIVE_PATH = os.path.join(DATA_DIR, "input_archive.zip")
+EXCTRACT_PATH = os.path.join(DATA_DIR, "extracted")
+
+# 1. Extracting the archive and removing junk files.
+sly.fs.unpack_archive(ARCHIVE_PATH, EXCTRACT_PATH, remove_junk=True)
+
+# 2. Specifying the marker we want to find.
+MARKERS = "config.json"
+
+# 3. Iterating over directories with markers without checking them.
+for directory in sly.fs.dirs_with_marker(EXCTRACT_PATH, MARKERS, ignore_case=True):
+    print(f"The directory with the marker '{MARKERS}' is found: '{directory}'")
+
+# 4. Defining the check function.
+def check_function(directory: str) -> bool:
+    config = json.load(open(os.path.join(directory, MARKERS)))
+    images_dir = os.path.join(directory, "images")
+    anns_dir = os.path.join(directory, "anns")
+
+    return config.get("valid") is True and os.path.isdir(images_dir) and os.path.isdir(anns_dir)
+
+# 5. Iterating over directories with directories which contains markers and passed the check.
+for checked_directory in sly.fs.dirs_with_marker(
+    EXCTRACT_PATH, MARKERS, check_function=check_function, ignore_case=True
+):
+    print(f"The directory '{checked_directory}' is valid.")
+```
+
+Let's have a look on what we've got here:
+
+1. We've extracted the archive and removed junk files.
+2. We've specified the marker we want to find.
+3. We've iterated over directories with markers without checking them. In our test case it will print two directories, while the correct is only one.
+4. We've defined the check function that will be used to check the directory meet our requirements.
+5. We've iterated over directories that passed all checks. In our test case it will print only one directory, which is correct.
+
+And now we can easily work with the data from the directory (or directories) we've found, knowing that it's valid.
+
+## Summary
+
+In this tutorial, we've learned how to find directories with specific markers and check them for some conditions using `sly.fs.dirs_with_marker()` function. We've also learned how to extract the archive and clean it of junk files using `sly.fs.unpack_archive()` or `sly.fs.remove_junk_from_dir()` functions. <br>
+We hope this tutorial was helpful for you and it will save you some time in the future, while working with import apps. <br>
