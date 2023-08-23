@@ -1,6 +1,6 @@
 ---
 description: >-
-A tutorial on how to find directories with specific markers (filename) and check them for some conditions using `sly.fs.dirs_with_marker()` function.
+  A tutorial on how to find directories with specific markers (filename) and check them for some conditions using `sly.fs.dirs_with_marker()` function.
 ---
 
 # Finding directories with specific markers
